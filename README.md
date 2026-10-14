@@ -1,4 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Explore Page
+
+## What it does
+
+- Browse London listings and filter them by area and price range
+- Open a listing detail page with a placeholder booking button
+- Out of scope, as agreed: auth, uploads, user management and booking logic
+
+## Stack and why
+
+- **Next.js and TypeScript:** one repo for the UI and API
+- **Postgres with Drizzle:** typed queries and migrations
+- **shadcn/ui and Base UI:** accessible components that are quick to put together
+
+## How I worked
+
+1. Ran a short Q&A with an AI agent to pin down the data shape, then committed a spec as the source of truth.
+2. Split the work into four tasks I could trace back to the spec: database setup, filtering, the property page and the Explore UI.
+3. Built with AI agents and reviewed every diff myself.
+
+For a throwaway prototype I'd have one-shotted it. Here I wanted to show how I'd build in a team: a clear spec, small reviewable changes, and decisions written down.
+
+## Done during and after the session
+
+- During: database, migrations, seed data (hosts and London properties) and filtering
+- After: merged the listing detail page and fixed the font, added more styling and cleaned up code w/ React Doctor
+
+## What I'd do next
+
+- **Search as you type:** filter automatically, debounced, so there's no manual search button
+- **Pagination:** cursor-based paging instead of loading every listing
+- **Indexes:** on area, price and availability dates
+- **Images:** object storage behind a CDN, with resized versions
+- **Read scaling:** caching, then read replicas once traffic needs it
+- **The trust layer:** show guests and hosts how they're connected, which is where Kiki stands apart
 
 ## Setup
 
@@ -53,22 +87,3 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

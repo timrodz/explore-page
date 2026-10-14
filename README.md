@@ -1,8 +1,46 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Setup
+
+1. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+2. **Postgres** — either use Docker Compose from the repo root:
+
+   ```bash
+   docker compose up -d
+   ```
+
+   Or run Postgres yourself with the same settings as `docker-compose.yml`:
+
+   | Setting  | Value          |
+   | -------- | -------------- |
+   | User     | `kiki`         |
+   | Password | `kiki`         |
+   | Database | `kiki_explore` |
+   | Port     | `5432`         |
+
+3. **Environment** — copy `.env.example` to `.env.local` (or `.env`) so `DATABASE_URL` points at your database:
+
+   ```bash
+   cp .env.example .env.local
+   ```
+
+   Default URL: `postgresql://kiki:kiki@localhost:5432/kiki_explore`
+
+4. **Migrate and seed**
+
+   ```bash
+   npm run db:migrate
+   npm run db:seed
+   ```
+
 ## Getting Started
 
-First, run the development server:
+Run the development server:
 
 ```bash
 npm run dev

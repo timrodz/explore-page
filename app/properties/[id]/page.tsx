@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import { connection } from "next/server";
 import { BookButton } from "@/components/book-button";
 import { buttonVariants } from "@/components/ui/button";
 import { getProperty } from "@/lib/properties/get-property";
@@ -11,11 +13,24 @@ function formatNightlyPrice(pricePerNightPence: number): string {
   }).format(pricePerNightPence / 100);
 }
 
-export default async function PropertyPage({
+export default function PropertyPage({
+  params,
+}: PageProps<"/properties/[id]">) {
+  return (
+    <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-6 py-10">
+      <Suspense fallback={<p className="text-muted-foreground">Loading property…</p>}>
+        <PropertyDetails params={params} />
+      </Suspense>
+    </main>
+  );
+}
+
+async function PropertyDetails({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: PageProps<"/properties/[id]">["params"];
 }) {
+  await connection();
   const { id } = await params;
   const property = await getProperty(id);
   if (!property) {
@@ -23,7 +38,7 @@ export default async function PropertyPage({
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-6 py-10">
+    <>
       {property.imageUrl ? (
         // Remote seed images are not configured for next/image.
         // eslint-disable-next-line @next/next/no-img-element
@@ -47,6 +62,6 @@ export default async function PropertyPage({
           Back to explore
         </Link>
       </div>
-    </main>
+    </>
   );
 }

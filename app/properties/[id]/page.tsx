@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BookButton } from "@/components/book-button";
+import { buttonVariants } from "@/components/ui/button";
 import { getProperty } from "@/lib/properties/get-property";
 
 function formatNightlyPrice(pricePerNightPence: number): string {
@@ -38,7 +40,12 @@ export default async function PropertyPage({
         <p>Host: {property.hostName}</p>
       </div>
       <p className="leading-7">{property.description}</p>
-      <BookButton />
+      <div className="flex flex-col gap-3">
+        <BookButton />
+        <Link href="/" className={buttonVariants({ variant: "outline", size: "lg" })}>
+          Back to explore
+        </Link>
+      </div>
     </main>
   );
 }

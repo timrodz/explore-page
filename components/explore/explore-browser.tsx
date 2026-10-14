@@ -1,10 +1,12 @@
 "use client";
 
+import { addDays, subDays } from "date-fns";
 import { useState, useTransition } from "react";
 import { useActionState } from "react";
 import { searchExploreProperties } from "@/app/actions/search-properties";
 import { PropertyCard } from "@/components/explore/property-card";
 import { Button } from "@/components/ui/button";
+import { DatePicker, dateStringToLocalDate } from "@/components/ui/date-picker";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -108,22 +110,32 @@ export function ExploreBrowser({
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="checkIn">Check-in</Label>
-            <Input
+            <DatePicker
               id="checkIn"
               name="checkIn"
-              type="date"
               value={checkIn}
-              onChange={(event) => setCheckIn(event.target.value)}
+              placeholder="Any"
+              toDate={
+                checkOut
+                  ? subDays(dateStringToLocalDate(checkOut)!, 1)
+                  : undefined
+              }
+              onChange={setCheckIn}
             />
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="checkOut">Check-out</Label>
-            <Input
+            <DatePicker
               id="checkOut"
               name="checkOut"
-              type="date"
               value={checkOut}
-              onChange={(event) => setCheckOut(event.target.value)}
+              placeholder="Any"
+              fromDate={
+                checkIn
+                  ? addDays(dateStringToLocalDate(checkIn)!, 1)
+                  : undefined
+              }
+              onChange={setCheckOut}
             />
           </div>
         </div>

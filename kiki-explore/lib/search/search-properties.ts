@@ -4,6 +4,12 @@ import { properties, propertyListings } from "@/db/schema";
 import type { Area } from "@/lib/domain/area";
 import type { DateString } from "@/lib/explore/dates";
 import { shouldApplyStayFilter } from "@/lib/explore/filters";
+import {
+  parsePropertySummaries,
+  type PropertySummary,
+} from "@/lib/search/property-summary";
+
+export type { PropertySummary };
 
 export type SearchPropertiesInput = {
   checkIn?: DateString;
@@ -11,14 +17,6 @@ export type SearchPropertiesInput = {
   minPricePence?: number;
   maxPricePence?: number;
   area?: Area | null;
-};
-
-export type PropertySummary = {
-  id: string;
-  title: string;
-  area: Area;
-  pricePerNightPence: number;
-  imageUrl: string | null;
 };
 
 export async function searchProperties(
@@ -68,11 +66,5 @@ export async function searchProperties(
     .where(conditions.length > 0 ? and(...conditions) : undefined)
     .orderBy(properties.title);
 
-  return rows.map((row) => ({
-    id: row.id,
-    title: row.title,
-    area: row.area as Area,
-    pricePerNightPence: row.pricePerNightPence,
-    imageUrl: row.imageUrl,
-  }));
+  return parsePropertySummaries(rows);
 }

@@ -17,7 +17,13 @@ function formatNightlyPrice(pricePerNightPence: number): string {
   }).format(pricePerNightPence / 100);
 }
 
-export function PropertyCard({ property }: { property: PropertySummary }) {
+export function PropertyCard({
+  property,
+  imageLoading = "lazy",
+}: {
+  property: PropertySummary;
+  imageLoading?: "eager" | "lazy";
+}) {
   return (
     <Card className="h-full pt-0 transition-colors hover:bg-muted/40">
       <Link
@@ -30,6 +36,7 @@ export function PropertyCard({ property }: { property: PropertySummary }) {
               src={property.imageUrl}
               alt=""
               fill
+              loading={imageLoading}
               className="object-cover"
               sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             />

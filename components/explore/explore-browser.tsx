@@ -169,9 +169,12 @@ export function ExploreBrowser({
           aria-busy={pending}
           className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {state.properties.map((property) => (
+          {state.properties.map((property, index) => (
             <li key={property.id}>
-              <PropertyCard property={property} />
+              <PropertyCard
+                property={property}
+                imageLoading={index === 0 ? "eager" : "lazy"}
+              />
             </li>
           ))}
         </ul>

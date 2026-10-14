@@ -9,6 +9,8 @@ const validRow = {
   pricePerNightPence: 18_500,
   imageUrl: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
   hostName: "Host A",
+  start: "2026-06-01",
+  end: "2026-07-20",
 };
 
 describe("parsePropertyDetail", () => {
@@ -21,6 +23,8 @@ describe("parsePropertyDetail", () => {
       pricePerNightPence: 18_500,
       imageUrl: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
       hostName: "Host A",
+      start: "2026-06-01",
+      end: "2026-07-20",
     });
   });
 

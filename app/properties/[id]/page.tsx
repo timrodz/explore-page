@@ -37,6 +37,7 @@ export default async function PropertyPage({
         <h1 className="text-3xl font-semibold tracking-tight">{property.title}</h1>
         <p className="text-zinc-600">{property.area}</p>
         <p className="text-lg">{formatNightlyPrice(property.pricePerNightPence)} per night</p>
+        <p>from {property.start} to {property.end}</p>
         <p>Host: {property.hostName}</p>
       </div>
       <p className="leading-7">{property.description}</p>

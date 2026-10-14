@@ -51,6 +51,9 @@ export function PropertyCard({ property }: { property: PropertySummary }) {
             </span>{" "}
             <span className="text-muted-foreground">per night</span>
           </p>
+          <p className="text-sm text-muted-foreground">
+            from {property.start} to {property.end}
+          </p>
         </CardContent>
       </Link>
     </Card>

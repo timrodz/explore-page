@@ -1,4 +1,4 @@
-import { and, eq, exists, gte, lte, sql } from "drizzle-orm";
+import { and, eq, exists, gte, lte, max, min, sql } from "drizzle-orm";
 import { getDb } from "@/db/client";
 import { properties, propertyListings } from "@/db/schema";
 import type { Area } from "@/lib/domain/area";
@@ -54,6 +54,16 @@ export async function searchProperties(
     );
   }
 
+  const listingBounds = db
+    .select({
+      propertyId: propertyListings.propertyId,
+      start: min(propertyListings.availableFrom).as("start"),
+      end: max(propertyListings.availableTo).as("end"),
+    })
+    .from(propertyListings)
+    .groupBy(propertyListings.propertyId)
+    .as("listing_bounds");
+
   const rows = await db
     .select({
       id: properties.id,
@@ -61,8 +71,11 @@ export async function searchProperties(
       area: properties.area,
       pricePerNightPence: properties.pricePerNight,
       imageUrl: properties.imageUrl,
+      start: listingBounds.start,
+      end: listingBounds.end,
     })
     .from(properties)
+    .innerJoin(listingBounds, eq(properties.id, listingBounds.propertyId))
     .where(conditions.length > 0 ? and(...conditions) : undefined)
     .orderBy(properties.title);
 

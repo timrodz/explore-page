@@ -4,14 +4,8 @@ import { Suspense } from "react";
 import { connection } from "next/server";
 import { BookButton } from "@/components/book-button";
 import { buttonVariants } from "@/components/ui/button";
+import { formatNightlyPrice } from "@/lib/domain/price";
 import { getProperty } from "@/lib/properties/get-property";
-
-function formatNightlyPrice(pricePerNightPence: number): string {
-  return new Intl.NumberFormat("en-GB", {
-    style: "currency",
-    currency: "GBP",
-  }).format(pricePerNightPence / 100);
-}
 
 export default function PropertyPage({
   params,

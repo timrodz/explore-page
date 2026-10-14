@@ -8,14 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { formatNightlyPrice } from "@/lib/domain/price";
 import type { PropertySummary } from "@/lib/search/property-summary";
-
-function formatNightlyPrice(pricePerNightPence: number): string {
-  return new Intl.NumberFormat("en-GB", {
-    style: "currency",
-    currency: "GBP",
-  }).format(pricePerNightPence / 100);
-}
 
 export function PropertyCard({
   property,
